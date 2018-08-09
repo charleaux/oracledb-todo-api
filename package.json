@@ -1,0 +1,27 @@
+{
+  "name": "oracledb-todo-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "oracledb": "^2.3.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.3"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/charleaux/oracledb-todo-api.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/charleaux/oracledb-todo-api/issues"
+  },
+  "homepage": "https://github.com/charleaux/oracledb-todo-api#readme"
+}

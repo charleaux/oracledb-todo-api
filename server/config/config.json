@@ -1,0 +1,22 @@
+{
+    "test": {
+        "PORT": 3000,
+        "dbPoolUser": "PLANAPP2",
+        "dbPoolPassword": "tst$$2016",
+        "dbPoolConnectString": "EPMDEVNY",
+        "dbPoolPoolMin": 10,
+        "dbPoolPoolMax": 10,
+        "dbPoolPoolIncrement": 0,
+        "JWT_SECRET": "alsdkfj;laskdfuoiquewrjflasdknvvmvmv"
+    },
+    "development": {
+        "PORT": 3000,
+        "dbPoolUser": "PLANAPP4",
+        "dbPoolPassword": "tst$$2016",
+        "dbPoolConnectString": "EPMDEVNY",
+        "dbPoolPoolMin": 10,
+        "dbPoolPoolMax": 10,
+        "dbPoolPoolIncrement": 0,
+        "JWT_SECRET": "alsdkfj;laskdfuoiquewrjflasdknvvmvmv"
+    }
+}
