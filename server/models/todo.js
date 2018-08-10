@@ -1,4 +1,4 @@
-var oracledb = require('../db/oracledb');
+var database = require('../db/oracledb');
 class Todo {
     constructor ({text}) {
         this.text = text;
@@ -10,46 +10,26 @@ class Todo {
             var options = {
                 autoCommit: true,
                 bindDefs: {
-                  document: { type: oracledb.STRING }
+                  document: { type: database.STRING }
                 }};
-            console.log(sql, binds, options);
+            // console.log(sql, binds, options);
             // let result = 
-            return await oracledb.simpleExecute(sql, binds, options);
+            return await database.execute(sql, binds, options);
         } catch (e) {
             console.log(e);
         }
 
     }
-}
-
-const dropTodosTable = 'DROP TABLE TODOS';
-const createTodosTable = `CREATE TABLE TODOS (
-    id INTEGER GENERATED ALWAYS AS IDENTITY (START WITH 1 INCREMENT BY 1) NOT NULL primary key,
-    created timestamp default current_timestamp,
-    updated timestamp default current_timestamp,
-    document VARCHAR2 (32767)
-        CONSTRAINT todo_document_ensure_json CHECK (document IS JSON)
-)`
-
-async function test() {
-    
-    try {
-        await oracledb.initialize();
-        await oracledb.simpleExecute(dropTodosTable);
-        await oracledb.simpleExecute(createTodosTable);
-        
-        let todo1 = new Todo('This is a test');
-        await todo1.save();
-
-        let todo2 = new Todo('This is the second test');
-        await todo2.save();
-
-        await oracledb.close();
-    } catch (e) {
-        console.log(e);
+    static async find() {
+        try {
+            const sql = 'select t.id as "id", t.document.text as "text" from todos t order by t.id';
+            const result = await database.execute(sql);
+            return result.rows;
+        } catch (e) {
+            console.log(e);
+        }
     }
-  
-    
 }
+
 
 module.exports = {Todo};

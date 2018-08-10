@@ -6,7 +6,8 @@
   "dependencies": {
     "body-parser": "^1.18.3",
     "express": "^4.16.3",
-    "oracledb": "^2.3.0"
+    "oracledb": "^2.3.0",
+    "readyness": "^0.1.0"
   },
   "devDependencies": {
     "expect": "^23.4.0",
@@ -15,7 +16,9 @@
     "supertest": "^3.1.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server/server.js",
+    "test": "export NODE_ENV=test || SET \"NODE_ENV=test\" && mocha server/**/*.test.js --timeout 10000",
+    "test-watch": "nodemon --exec \"npm test\""
   },
   "repository": {
     "type": "git",

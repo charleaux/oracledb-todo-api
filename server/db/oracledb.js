@@ -14,39 +14,43 @@ const dbPool = {
 async function initialize() {
     // console.log(JSON.stringify(dbConfig.dbPool, undefined, 2));
     const pool = await oracledb.createPool(dbPool);
+    // console.log('pool created');
 }
  
 async function close() {
     await oracledb.getPool().close();
 }
 
-function simpleExecute(statement, binds = [], opts = {}) {
+function execute(statement, binds = [], opts = {}) {
     return new Promise(async (resolve, reject) => {
         let conn;
 
         opts.outFormat = oracledb.OBJECT;
         opts.autoCommit = true;
-
+        // console.log('attempting to execute:', statement);
         try {
-            conn = await oracledb.getConnection();
-
+            // console.log('getting connection');
+            try {
+                conn = await oracledb.getConnection();
+            } catch {
+                const pool = await oracledb.createPool(dbPool);
+                conn = await oracledb.getConnection();
+            }
+            
+            // console.log('conn:', conn);
             const result = await conn.execute(statement, binds, opts);
 
             resolve(result);
         } catch (err) {
+            console.log('somethin went wrong:', err);
             reject(err);
-        } finally {
-            if (conn) { // conn assignment worked, need to close
-                try {
-                    await conn.close();
-                } catch (err) {
-                    console.log(err);
-                }
-            }
         }
     });
 }
 
-const STRING = oracledb.STRING
 
-module.exports = {initialize, close, simpleExecute, STRING};
+
+const STRING = oracledb.STRING
+const getConnection = oracledb.getConnection;
+
+module.exports = {getConnection, initialize, close, execute, STRING};

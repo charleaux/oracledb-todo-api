@@ -2,7 +2,7 @@ require('./config/config.js');
 var express = require('express');
 var bodyParser = require('body-parser');
 
-var oracledb = require('./db/oracledb');
+var database = require('./db/oracledb');
 var {Todo} = require('./models/todo');
 var {User} = require('./models/user');
 
@@ -24,8 +24,16 @@ app.post('/todos', async (req, res) => {
     }
 });
 
-app.listen(port, async () => {
-    await oracledb.initialize();
-    console.log(`Started on port ${port}`); 
-});
-// await oracledb.close();
+async function init() {
+    await database.initialize();
+    app.listen(port, () => {
+        console.log(`Started on port ${port}`); 
+    });
+}
+
+
+init()
+
+process.on('exit', database.close);
+
+module.exports = {app};
