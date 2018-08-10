@@ -48,9 +48,38 @@ function execute(statement, binds = [], opts = {}) {
     });
 }
 
+function executeMany(statement, binds = [], opts = {}) {
+    return new Promise(async (resolve, reject) => {
+        let conn;
+
+        opts.outFormat = oracledb.OBJECT;
+        opts.autoCommit = true;
+        // console.log('attempting to execute:', statement);
+        try {
+            // console.log('getting connection');
+            try {
+                conn = await oracledb.getConnection();
+            } catch {
+                const pool = await oracledb.createPool(dbPool);
+                conn = await oracledb.getConnection();
+            }
+            
+            // console.log('conn:', conn);
+            const result = await conn.executeMany(statement, binds, opts);
+
+            resolve(result);
+        } catch (err) {
+            console.log('somethin went wrong:', err);
+            console.log('statement:', statement);
+            console.log('binds:', binds);
+            console.log('opts:', opts);
+            reject(err);
+        }
+    });
+}
 
 
 const STRING = oracledb.STRING
 const getConnection = oracledb.getConnection;
 
-module.exports = {getConnection, initialize, close, execute, STRING};
+module.exports = {getConnection, initialize, close, execute, executeMany, STRING};

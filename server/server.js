@@ -24,6 +24,15 @@ app.post('/todos', async (req, res) => {
     }
 });
 
+app.get('/todos', async (req, res) => {
+    try {
+        var todos = await Todo.find();
+        res.send({todos});
+    } catch (e) {
+        res.status(400).send(e);
+    }
+});
+
 async function init() {
     await database.initialize();
     app.listen(port, () => {
