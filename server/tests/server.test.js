@@ -1,7 +1,5 @@
-// require('../config/config');
 const expect = require('expect');
 const request = require('supertest');
-// const ready = require('readyness');
 
 var database = require('./../db/oracledb');
 const {app} = require('./../server');

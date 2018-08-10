@@ -18,6 +18,7 @@ app.post('/todos', async (req, res) => {
         });
 
         await todo.save();
+        console.log(todo);
         res.send(todo);
     } catch (e) {
         res.status(400).send();
@@ -32,6 +33,18 @@ app.get('/todos', async (req, res) => {
         res.status(400).send(e);
     }
 });
+
+app.get('/todos/:id', async (req, res) => {
+    try {
+        var todo = await Todo.findById({_id: req.params.id});
+        console.log('req.params:', req.params.id);
+        console.log('todo', todo)
+        res.send(todo);
+    } catch (e) {
+        res.status(400).send(e);
+    }
+});
+
 
 async function init() {
     await database.initialize();
