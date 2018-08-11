@@ -32,7 +32,7 @@ function execute(statement, binds = [], opts = {}) {
             // console.log('getting connection');
             try {
                 conn = await oracledb.getConnection();
-            } catch {
+            } catch (e) {
                 const pool = await oracledb.createPool(dbPool);
                 conn = await oracledb.getConnection();
             }
@@ -59,7 +59,7 @@ function executeMany(statement, binds = [], opts = {}) {
             // console.log('getting connection');
             try {
                 conn = await oracledb.getConnection();
-            } catch {
+            } catch (e) {
                 const pool = await oracledb.createPool(dbPool);
                 conn = await oracledb.getConnection();
             }

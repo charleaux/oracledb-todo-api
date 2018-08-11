@@ -13,7 +13,7 @@ const todos = [
 beforeEach(async () => {
     try {
         await database.getConnection()
-    } catch {
+    } catch (e) {
         await database.initialize();
     }
     await database.execute('truncate table todos');
