@@ -61,16 +61,27 @@ class Todo {
                             json_value(t.document, '$._id') as "_id",
                             t.document.text as "text",
                             json_value(t.document, '$.completedAt') as "completedAt",
+                            --t.document.completedat as "completedAt",
                             json_value(t.document, '$.completed') as "completed"
+                            --t.document.completed as "completed"
                         from
                             todos t `;
+            sql = `select t.id as "id", t.document as "document" from todos t
+            `
             
             if (todo !== undefined) {
                 sql = sql.concat(`where t.document.text = '${todo.text}' `);
             }
             sql = sql.concat('order by id');
             const result = await database.execute(sql);
-            return result.rows;
+            let objResult = []
+            result.rows.forEach((row) => {
+                let tmpRow = JSON.parse(row.document);
+                tmpRow.id = row.id;
+                objResult.push(tmpRow);
+            })
+            // console.log(objResult)
+            return objResult;
         } catch (e) {
             return e;
         }

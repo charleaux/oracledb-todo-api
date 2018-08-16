@@ -1,0 +1,30 @@
+{
+    "ITD": {
+        "name": "Information Technology",
+        "primaryActivities": [{
+            "name": "Administration",
+            "subActivities": [{
+                "name": "Sub Administration",
+                "expenses": [{
+                    "FY17": [{
+                        "amount": 1337.101
+                    }]
+                }]
+            }]
+        }]
+    },
+    "OMB": {
+        "name": "Office of Management and Budget",
+        "primaryActivities": [{
+            "name": "Administration",
+            "subActivities": [{
+                "name": "Sub Administration",
+                "expenses": [{
+                    "FY17": [{
+                        "amount": 1337.101
+                    }]
+                }]
+            }]
+        }]
+    }
+}
